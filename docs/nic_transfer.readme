@@ -1,0 +1,24 @@
+nic_auto_tfer.sh script is set up through username `jt`
+
+`jt` is set up with password-free ssh access to the nic server
+
+To set this up for a different user:
+- run ssh-keygen, follow instructions, don't supply a password.
+- this generates 2 files: id_rsa, id_rsa.pub (or whatever you named it using ssh-keygen)
+- copy the contents of the id_rsa.pub file, connect to the nic server, and open the
+  ${HOME}/.ssh/authorized_keys.
+- append the contents of your calipso:id_rsa.pub to the end of this file.
+- save authorized_keys and disconnect from the nic server.
+- running your standard ssh command should connect without prompting for a password
+
+The auto-transfer script is set up to run at 5:00 AM every morning using cron, again
+under user `jt`.
+- User cron files are located in /var/spool/cron/
+- file `jt` has this line: 0 5 * * * /home/jt/scripts/nic_auto_tfer.sh
+    - man cron for info: first 5 numbers are when it runs, the rest is script path
+    - if you set this up under a different user, create a new cron file for that
+      user and add a similar-looking line; just make sure the path is correct.
+
+
+
+

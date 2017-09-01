@@ -1,0 +1,3 @@
+plot_movt.sh
+- requires gnuplot v4.4.3 or later
+- change the path to gnuplot in the plot_movt.sh script.

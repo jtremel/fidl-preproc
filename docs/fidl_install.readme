@@ -1,0 +1,23 @@
+- Grab the latest fidl release from imaging.wustl.edu in /pub/mcavoy/ (user anonymous). If fresh install, be sure to get both the lib and release tars plus the install scripts. 
+
+- Make directory for new fidl in /usr/local/pkg/ and append the date to the directory name (i.e., fidl-2.64_YYMMDD). Update the /usr/local/pkg/fidl symlink to point to the new install directory.
+
+- Run the install.csh script. (I think you install the VM right after this on a fresh install.)
+
+- Copy over files from old fidl/lib to new one. If fresh install, extract the contents of the lib.tar to the lib directory. Might need to set up links from 711-2B.4dfp.*'s to point to 711-2B_111.4dfp.*'s with fresh install.
+
+- In /usr/local/pkg/fidl, move bin/ to bin_sun/. Make a symlink called bin/ pointing to bin_linux64/.
+
+- If necessary, update global paths in /etc/profile.d/fidl.sh (and fidl.csh) <OR> update user shell config files (.bashrc and .cshrc in home directories). For bash:
+	PATH="${PATH}:/usr/local/pkg/fidl/scripts:/usr/local/pkg/fidl/bin:/usr/local/pkg/nil-tools/bin"
+	export PATH
+	export REFDIR=/usr/local/pkg/fidl/lib
+	export RELEASE=/usr/local/pkg/fidl/nil-tools/bin
+	export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
+	alias fidl="/usr/local/pkg/fidl/scripts/fidl -vm"
+
+- Link libraries in /usr/local/pkg/fidl/bin
+	"libgsl.so.0" pointing to libgsl.so.0.12.0
+	"libgsl.so" pointing to libgsl.so.0.12.0
+	"libgslcblas.so.0" pointing to libgslcblas.so.0.0.0
+	"libgslcblas.so" pointing to libgslcblas.so.0.0.0

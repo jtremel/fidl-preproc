@@ -1,0 +1,37 @@
+Dependencies:
+
+1) Medcon version 0.10.7 (or more recent, probably--not tested): converts raw dcm to anz format
+
+2) nil-tools from imaging.wustl.edu
+
+3) AFNI: to3d, 3dAFNItoANALYZE, and siemens_vision 
+(NOTE: If you do not need to use old vision (ima) files, search for "$afni" in preproc.sh and comment out/delete those lines.
+AFNI is only necessary if you are processing old siemens vision (ima) files. If this is not a concern and you have issues.)
+
+
+
+*** Change program paths in paths.sh in the main preproc directory to point to the install location of
+    the program dependencies. ****
+
+
+
+replace the default nil-tools mpr2atl_4dfp with the following version:
+/usr/local/pkg/fidl_preprocess/archive/jt_mpr2atl_4dfp_111207
+(Make sure it is renamed to 'mpr2atl_4dfp')
+(This script replaces lines 239 and 240 with the following:
+	if ($hasStudyTarget) then
+		imgreg_4dfp $targetpath $usemsk[$k] $mpr"_g11" $mpr"_mskz" $t4file $modes[$k] >> $log
+		if ($status) goto ERR;
+	else
+		imgreg_4dfp $ref $usemsk[$k] $mpr"_g11" $mpr"_mskz" $t4file $modes[$k] >> $log
+		if ($status) goto ERR;
+	endif
+Without this, it will not support use of a custom atlas.)
+
+
+
+Note there are several scripts with the preprocessing stream now, called by the main
+preproc.sh script to do various things. These scripts were created to make debugging a bit 
+easier and to add in some functions that could be made optional later if necessary (e.g.,
+commenting out the calls to them in preproc.sh). Descriptions of the scripts can be found
+in the header of the .sh files. Some other notes might be found in the preproc.sh script.
